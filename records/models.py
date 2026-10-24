@@ -137,20 +137,36 @@ class ConfirmationRecord(models.Model):
         return f"Confirmation: {self.person}"
 
 
+
 class MatrimonyRecord(models.Model):
     person = models.ForeignKey(
         Person,
         on_delete=models.PROTECT,
         related_name="matrimony_records"
     )
+
+    # Link to the spouse's actual person profile when available.
+    spouse = models.ForeignKey(
+        Person,
+        on_delete=models.PROTECT,
+        related_name="spouse_matrimony_records",
+        null=True,
+        blank=True
+    )
+
+    # Preserve the spouse's name exactly as recorded in the marriage register.
     spouse_name = models.CharField(max_length=200)
+
     date_of_marriage = models.DateField()
+
     parish = models.ForeignKey(
         Parish,
         on_delete=models.PROTECT,
         related_name="matrimony_records"
     )
+
     registration_number = models.CharField(max_length=50)
+
     spouse_baptism_parish = models.ForeignKey(
         Parish,
         on_delete=models.PROTECT,
@@ -158,10 +174,12 @@ class MatrimonyRecord(models.Model):
         null=True,
         blank=True
     )
+
     spouse_baptism_registration_number = models.CharField(
         max_length=50,
         blank=True
     )
+
     notes = models.TextField(blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
