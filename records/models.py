@@ -178,4 +178,3 @@ class MatrimonyRecord(models.Model):
 
     def __str__(self):
         return f"Matrimony: {self.person} and {self.spouse_name}"
-git add 
