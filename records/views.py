@@ -64,7 +64,7 @@ def parish_statistics(request, parish_id):
     return Response(data)
 
 
-class PersonSearchView(generics.ListAPIView):
+class PersonSearchView(generics.ListCreateAPIView):
     serializer_class = PersonSerializer
 
     def get_queryset(self):
